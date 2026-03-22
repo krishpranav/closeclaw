@@ -1,29 +1,34 @@
-import { useCallback } from "react";
+import { useCallback } from 'react';
+import * as Haptics from 'expo-haptics';
 import {
-    useSharedValue,
-    useAnimatedStyle,
-    withSpring,
-    withTiming,
-} from "react-native-reanimated";
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
 
-export const useAnimatedPress = (scaleTo = 0.96) => {
-    const scale = useSharedValue(1);
-    const opacity = useSharedValue(1);
+export function useAnimatedPress(scaleFactor = 0.96) {
+  const scale = useSharedValue(1);
 
-    const animatedStyle = useAnimatedStyle(() => ({
-        transform: [{ scale: scale.value }],
-        opacity: opacity.value,
-    }));
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
 
-    const onPressIn = useCallback(() => {
-        scale.value = withSpring(scaleTo, { damping: 15, stiffness: 400 });
-        opacity.value = withTiming(0.85, { duration: 80 });
-    }, [scaleTo]);
+  const onPressIn = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    scale.value = withSpring(scaleFactor, {
+      mass: 0.5,
+      damping: 12,
+      stiffness: 150,
+    });
+  }, [scale, scaleFactor]);
 
-    const onPressOut = useCallback(() => {
-        scale.value = withSpring(1, { damping: 15, stiffness: 400 });
-        opacity.value = withTiming(1, { duration: 120 });
-    }, []);
+  const onPressOut = useCallback(() => {
+    scale.value = withSpring(1, {
+      mass: 0.5,
+      damping: 12,
+      stiffness: 150,
+    });
+  }, [scale]);
 
-    return { animatedStyle, onPressIn, onPressOut };
-};
+  return { animatedStyle, onPressIn, onPressOut };
+}
