@@ -1,16 +1,17 @@
 export const COLORS = {
-  black: "#000000",
-  surface: "#0A0A0A",
-  card: "#111111",
-  border: "#1C1C1C",
-  accent: "#C8FF00",
-  accentBlue: "#00D4FF",
-  accentRose: "#FF3A5E",
-  muted: "#3A3A3A",
-  textPrimary: "#F5F5F5",
-  textSecondary: "#888888",
-  textDim: "#444444",
-} as const;
+  background: '#000000',
+  surface: '#0A0A0A',
+  card: '#111111',
+  border: '#1C1C1C',
+  primary: '#C8FF00', // Neon Lime
+  info: '#00D4FF',    // Neon Blue
+  danger: '#FF3A5E',  // Neon Rose
+  text: {
+    primary: '#F5F5F5',
+    secondary: '#888888',
+    dim: '#444444',
+  },
+};
 
 export const SPACING = {
   xs: 4,
@@ -19,14 +20,12 @@ export const SPACING = {
   lg: 24,
   xl: 32,
   xxl: 48,
-} as const;
+};
 
-export const FONT_SIZE = {
-  xs: 11,
-  sm: 13,
-  base: 15,
-  lg: 18,
-  xl: 22,
-  "2xl": 28,
-  "3xl": 36,
-} as const;
+export const RADII = {
+  sm: 4,
+  md: 8,
+  lg: 12,
+  xl: 20,
+  pill: 9999,
+};
